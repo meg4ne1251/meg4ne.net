@@ -672,11 +672,41 @@ client:load   → ページ読み込みと同時に即座に読み込む
 // server/src/routes/ws.ts（発展的な内容）
 import { Hono } from "hono";
 import { createNodeWebSocket } from "@hono/node-ws";
+import { proxmoxFetch } from "../lib/proxmox";
+import { sanitizeVM } from "../lib/sanitize";
+import { config } from "../config";
 
 const wsApp = new Hono();
 
 // WebSocket のアップグレードハンドラー
 const { injectWebSocket, upgradeWebSocket } = createNodeWebSocket({ app: wsApp });
+
+/**
+ * モニターデータを取得してサニタイズする
+ * ポーリング版の API ルート（第13章）と同じロジック
+ */
+async function getMonitorData() {
+  const [nodeStatus, rawVMs] = await Promise.all([
+    proxmoxFetch<Record<string, unknown>>({
+      path: `/nodes/${config.proxmox.nodeName}/status`,
+    }),
+    proxmoxFetch<Array<Record<string, unknown>>>({
+      path: `/nodes/${config.proxmox.nodeName}/qemu`,
+    }),
+  ]);
+
+  return {
+    node: {
+      cpuUsage: Math.round((nodeStatus.cpu as number) * 100 * 100) / 100,
+      memoryUsage: Math.round(
+        ((nodeStatus.memory as any).used / (nodeStatus.memory as any).total) * 100 * 100,
+      ) / 100,
+      uptime: nodeStatus.uptime,
+    },
+    vms: rawVMs.map((vm) => sanitizeVM(vm as any)),
+    timestamp: new Date().toISOString(),
+  };
+}
 
 wsApp.get(
   "/ws/monitor",
@@ -690,7 +720,7 @@ wsApp.get(
         // 接続されたら5秒ごとにデータを送信
         interval = setInterval(async () => {
           try {
-            const data = await getMonitorData();  // データ取得
+            const data = await getMonitorData();
             ws.send(JSON.stringify(data));
           } catch (error) {
             ws.send(JSON.stringify({ error: "データ取得失敗" }));

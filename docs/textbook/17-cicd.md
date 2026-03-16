@@ -364,7 +364,7 @@ echo "YOUR_GITHUB_PAT" | docker login ghcr.io -u YOUR_USERNAME --password-stdin
    → GHCR に Push（:latest タグ）
 3. Watchtower が5分以内に検知
    → GHCR から新しいイメージを Pull
-   → 古い新しいイメージでコンテナを再作成
+   → 新しいイメージでコンテナを再作成
 4. 新しいコンテナが起動
 5. 古いイメージは自動削除（CLEANUP=true）
 

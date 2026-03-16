@@ -194,7 +194,7 @@ import { getCollection } from "astro:content";
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
   return posts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
     props: { post },
   }));
 }
@@ -405,8 +405,8 @@ export default defineConfig({
 
   // 出力モード
   // "static": 全ページを HTML ファイルとして事前生成（デフォルト）
-  // "server": リクエスト時にサーバーで HTML を生成（SSR）
-  // "hybrid": ページごとに static と server を選択
+  // "server": 基本は SSR。ページごとに prerender: true を指定すれば静的生成も可能
+  // ※ Astro v4 以前の "hybrid" は v5 で廃止され、"server" に統合されました
   output: "static",
 
   // サイトの URL（SEO やサイトマップに使われる）
@@ -429,14 +429,10 @@ export default defineConfig({
 └── このプロジェクトの大部分はこれで OK
 
 "server"（サーバーサイドレンダリング = SSR）
-├── リクエストのたびに HTML を生成
+├── デフォルトではリクエストのたびに HTML を生成
 ├── Node.js サーバーが必要
-└── サーバーモニターのデータを最新にしたい場合に検討
-
-"hybrid"（ハイブリッド）
-├── ページごとに static か server を選択
-├── ほとんどのページは静的、一部だけ SSR
-└── このプロジェクトに最適かもしれない
+├── 個別ページに export const prerender = true を書けば静的生成も可能
+└── Astro v5 では旧 "hybrid" モードがこちらに統合された
 ```
 
 > **推奨**: まずは `"static"` で始めて、サーバーモニターなどリアルタイム性が必要な部分はクライアントサイド（React + fetch）で対応する。必要に応じて後から `"hybrid"` に変更できます。

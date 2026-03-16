@@ -142,6 +142,8 @@ src/content/blog/
 
 ファイル名（拡張子を除く）がそのまま URL の**スラッグ**になります。
 
+> **Astro v5 での変更**: Astro v4 以前では `post.slug` でスラッグを取得していましたが、v5 以降では `post.id` を使います。本教科書では v5 の記法を使用しています。
+
 ---
 
 ## 9.4 記事一覧ページの実装
@@ -185,7 +187,7 @@ function formatDate(date: Date): string {
   <div class="post-list">
     {sortedPosts.map((post) => (
       <article class="post-card">
-        <a href={`/blog/${post.slug}`} class="post-link">
+        <a href={`/blog/${post.id}`} class="post-link">
           <time datetime={post.data.publishedAt.toISOString()} class="post-date">
             {formatDate(post.data.publishedAt)}
           </time>
@@ -280,7 +282,7 @@ import { getCollection } from "astro:content";
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
   return posts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
     props: { post },
   }));
 }

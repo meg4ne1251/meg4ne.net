@@ -242,8 +242,6 @@ export async function proxmoxFetch<T>(
     headers: {
       Authorization: `PVEAPIToken=${config.proxmox.tokenId}=${config.proxmox.tokenSecret}`,
     },
-    // 自己署名証明書の場合（開発環境）
-    // 本番では正式な証明書を使うことを推奨
   });
 
   if (!response.ok) {
@@ -256,6 +254,28 @@ export async function proxmoxFetch<T>(
   return json.data;
 }
 ```
+
+### 自己署名証明書への対応
+
+Proxmox VE はデフォルトで自己署名証明書を使用しています。Node.js の `fetch` は自己署名証明書を拒否するため、内部ネットワークでの通信時に対処が必要です。
+
+```bash
+# 方法1: 環境変数で証明書検証を無効化（開発・内部ネットワーク用）
+# server/.env に追加
+NODE_TLS_REJECT_UNAUTHORIZED=0
+```
+
+```typescript
+// 方法2: Node.js 18+ の場合、fetch のオプションで指定
+// ※ Node.js のカスタム fetch を使う場合
+import https from "node:https";
+
+const agent = new https.Agent({ rejectUnauthorized: false });
+// undici の場合は dispatcher オプションを使用
+```
+
+> **セキュリティ上の注意**: `NODE_TLS_REJECT_UNAUTHORIZED=0` は全ての HTTPS 接続の証明書検証を無効にします。これは**内部ネットワークでの BFF → Proxmox 通信にのみ**使用してください。BFF 自体は Nginx の背後で動作するため、外部通信には影響しません。
+> より安全な方法は、Proxmox の CA 証明書をエクスポートして Node.js に信頼させることです（`NODE_EXTRA_CA_CERTS` 環境変数）。
 
 ### Proxmox API の認証方式
 

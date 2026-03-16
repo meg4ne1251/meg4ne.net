@@ -198,24 +198,37 @@ export default function ModelViewer({ modelPath, height = "500px" }: ModelViewer
 
 Draco は Google 開発の3Dデータ圧縮技術で、`.glb` ファイルのサイズを大幅に削減します。
 
-```tsx
-// Draco デコーダの設定（useGLTF を使う前に一度だけ呼ぶ）
-import { useGLTF } from "@react-three/drei";
-
-// Draco デコーダのパスを設定
-// CDN から読み込む方法（簡単）
-useGLTF.preload("/assets/models/character.glb");
-
-// または、ローカルのデコーダを使う場合
-// Draco デコーダファイルを public/draco/ に配置
-// three/examples/jsm/libs/draco/ からコピーする
-```
+Draco 圧縮された `.glb` ファイルを読み込むには、デコーダの設定が必要です。
 
 ```bash
 # Three.js の Draco デコーダファイルをコピー
 mkdir -p public/draco
 cp node_modules/three/examples/jsm/libs/draco/gltf/* public/draco/
 ```
+
+```tsx
+// Draco 対応のモデル読み込み例
+import { useGLTF } from "@react-three/drei";
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+
+// useGLTF は内部で GLTFLoader を使っている
+// Draco デコーダのパスを設定するには、モジュールスコープで以下を実行する
+useGLTF.preload("/assets/models/character.glb");
+
+// ※ @react-three/drei の useGLTF は、引数として Draco デコーダパスを指定できる
+// 第2引数に Draco デコーダのパスを渡す:
+function Model({ modelPath }: { modelPath: string }) {
+  const { scene } = useGLTF(modelPath, "/draco/");
+  //                                    ^^^^^^^^
+  // これで public/draco/ にあるデコーダが自動で読み込まれる
+  return <primitive object={scene.clone()} />;
+}
+```
+
+> **CDN を使う方法**: ローカルにデコーダを配置する代わりに、Google の CDN から読み込むこともできます。
+> `useGLTF(modelPath, "https://www.gstatic.com/draco/versioned/decoders/1.5.7/")`
+> ただし、外部依存を減らしたい場合はローカル配置が推奨です。
 
 ---
 

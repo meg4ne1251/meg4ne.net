@@ -347,7 +347,7 @@ Cloudflare ダッシュボードで以下を有効化すると、追加のセキ
 
 | 設定 | 場所 | 値 | 効果 |
 |---|---|---|---|
-| **SSL/TLS** | SSL/TLS → Overview | Full (strict) | Cloudflare↔サーバー間も暗号化 |
+| **SSL/TLS** | SSL/TLS → Overview | Full | Cloudflare↔サーバー間も暗号化（Tunnel 使用時は Full で十分。strict は正式な SSL 証明書が Nginx に必要） |
 | **Always Use HTTPS** | SSL/TLS → Edge Certificates | ON | HTTP を HTTPS にリダイレクト |
 | **Auto Minify** | Speed → Optimization | HTML, CSS, JS | アセットの軽量化 |
 | **Brotli** | Speed → Optimization | ON | gzip より高効率な圧縮 |

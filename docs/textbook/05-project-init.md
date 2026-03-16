@@ -248,8 +248,10 @@ if (condition) {
 
 ```bash
 # ESLint と関連パッケージをインストール
-pnpm add -D eslint @eslint/js typescript-eslint eslint-plugin-astro eslint-plugin-react eslint-plugin-react-hooks
+pnpm add -D eslint @eslint/js typescript-eslint eslint-plugin-astro eslint-plugin-react-hooks@^5.0.0
 ```
+
+> **注意**: `eslint-plugin-react-hooks` は v5 以降で Flat Config に対応しています。v5 未満を使う場合は互換レイヤーが必要になるため、必ず v5 以上を指定してください。`eslint-plugin-react` は Flat Config 対応が不完全な場合があるため、ここでは `react-hooks` のみを使用しています。
 
 > **`-D` フラグ**: `devDependencies`（開発時のみ使うパッケージ）としてインストールします。ESLint は本番環境では不要なので。
 
@@ -258,7 +260,6 @@ pnpm add -D eslint @eslint/js typescript-eslint eslint-plugin-astro eslint-plugi
 import js from "@eslint/js";
 import tseslint from "typescript-eslint";
 import astro from "eslint-plugin-astro";
-import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 
 export default [
@@ -271,23 +272,14 @@ export default [
   // Astro ルール
   ...astro.configs.recommended,
 
-  // React 設定
+  // React Hooks 設定
   {
     files: ["**/*.{tsx,jsx}"],
     plugins: {
-      react,
       "react-hooks": reactHooks,
     },
     rules: {
-      ...react.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
-      "react/react-in-jsx-scope": "off",  // React 17+ では不要
-      "react/prop-types": "off",           // TypeScript で型チェックするため不要
-    },
-    settings: {
-      react: {
-        version: "detect",  // React バージョンを自動検出
-      },
     },
   },
 
