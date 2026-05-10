@@ -372,5 +372,107 @@ export const TECH_STACK: TechCategory[] = [
 
 ---
 
+# 第13章（補足） ページを組み立てる
+
+## 13-0 なぜここが必要か
+
+ここまでで Nav・Hero・AboutSection・WritingPage・ServerPage などのコンポーネントを作りました。  
+しかし「それをどう組み合わせてページにするか」が教科書に抜けていました。  
+この補足でホームページの完成形を示します。
+
+## 13-1 index.astroを完成させる
+
+`src/pages/index.astro` を以下のように作成します：
+
+```astro
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.tsx';
+import Hero from '../components/Hero.tsx';
+import AboutSection from '../components/AboutSection.tsx';
+import Footer from '../components/Footer.tsx';
+
+// Astro.url.pathname で現在のURLパスを取得できる。
+// ここでは "/" になる。Nav に渡すことでアクティブなリンクを強調表示できる。
+const currentPath = Astro.url.pathname;
+---
+
+<BaseLayout title="meg4ne.net" description="megane — 3D / MoCap / Homelab / UEC">
+  <!--
+    client:load  → ページ読み込み時にすぐJSを送ってReactを起動する。
+                   Navはハンバーガーメニューの開閉状態を持つので必要。
+    client:idle  → ブラウザが暇になったときにJSを送る。
+                   Heroのタイピングアニメーションは最初に動くので load が適切。
+  -->
+  <Nav currentPath={currentPath} client:load />
+
+  <main>
+    <!-- Hero はタイピングアニメーションがあるので client:load -->
+    <Hero client:load />
+
+    <!-- AboutSection は状態を持たないので client:* ディレクティブ不要。
+         Astroがビルド時にHTMLを生成し、JSはブラウザに送られない。 -->
+    <AboutSection />
+  </main>
+
+  <Footer />
+</BaseLayout>
+```
+
+同様に `src/pages/server.astro`：
+
+```astro
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.tsx';
+import ServerPage from '../components/ServerPage.tsx';
+import Footer from '../components/Footer.tsx';
+
+const currentPath = Astro.url.pathname;
+---
+
+<BaseLayout title="Homelab — meg4ne.net" description="自宅サーバー環境の紹介">
+  <Nav currentPath={currentPath} client:load />
+  <ServerPage />
+  <Footer />
+</BaseLayout>
+```
+
+`src/pages/writing.astro`：
+
+```astro
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.tsx';
+import WritingPage from '../components/WritingPage.tsx';
+import Footer from '../components/Footer.tsx';
+
+const currentPath = Astro.url.pathname;
+---
+
+<BaseLayout title="Writing — meg4ne.net" description="ブログ記事一覧">
+  <Nav currentPath={currentPath} client:load />
+  <!--
+    WritingPage はフィルタータブの選択状態（useState）を持つので client:load が必要。
+  -->
+  <WritingPage client:load />
+  <Footer />
+</BaseLayout>
+```
+
+## 13-2 client:* ディレクティブの使い分けまとめ
+
+| ディレクティブ | 送るタイミング | 使いどころ |
+|---|---|---|
+| `client:load` | 即座（ページ読み込み時） | NavやHeroなど、最初から動く必要があるもの |
+| `client:idle` | ブラウザが暇なとき | スクロール後に見えるコンテンツなど |
+| `client:visible` | 画面に入ったとき | 画面外にある重いコンポーネント |
+| なし（デフォルト） | JSを送らない | 静的なHTMLだけで十分なもの |
+
+**原則**: インタラクション（`useState` など）が不要なコンポーネントにはディレクティブをつけない。  
+無駄なJSを送らないことがAstroのパフォーマンスの核心です。
+
+---
+
 > **前のパート**: [← Part 3: ページ実装](./textbook_03_pages.md)
 > **次のパート**: [Part 5: SEO・デプロイ・次のステップ →](./textbook_05_deploy.md)

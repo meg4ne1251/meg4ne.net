@@ -273,6 +273,8 @@ function DotGrid() {
  * 動的な状態変化がないため、シンプルなReactコンポーネントとして実装。
  */
 
+import type { ReactNode } from 'react';
+
 // 技術スタックデータ（後で data/tech.ts に移す）
 const TECH_STACK = [
   {
@@ -298,7 +300,7 @@ const TECH_STACK = [
  * childrenはReactの特殊なpropで、タグの中に書いた内容が入る。
  * <Chip>Blender</Chip> と書くと children = "Blender"
  */
-function Chip({ children }: { children: React.ReactNode }) {
+function Chip({ children }: { children: ReactNode }) {
   return (
     <span
       style={{
@@ -429,9 +431,10 @@ import ServerPage from '../components/ServerPage.tsx';
 ---
 
 <BaseLayout title="Homelab — meg4ne.net" description="自宅サーバー環境の紹介">
-  <!-- client:load: このコンポーネントをブラウザでもJSとして読み込む
-       静的なコンテンツだけなら不要だが、インタラクションがある場合に必要 -->
-  <ServerPage client:load />
+  <!-- client:* ディレクティブなし = Astroがビルド時にHTMLを生成するだけ。
+       ServerPageは状態・インタラクションがないので、ReactのJSをブラウザに
+       送る必要がない。静的コンテンツにはディレクティブをつけないのが正しい。 -->
+  <ServerPage />
 </BaseLayout>
 ```
 
@@ -445,6 +448,8 @@ import ServerPage from '../components/ServerPage.tsx';
  * 自宅サーバー・ホームラボの紹介ページ。
  * マシン一覧、運用サービス一覧を表示する。
  */
+
+import { Fragment } from 'react';
 
 // ─────────────────────────────────────────
 // 型定義
@@ -568,8 +573,9 @@ function MachineCard({ machine }: { machine: Machine }) {
           ['Storage', machine.storage],
           ['OS', machine.os],
         ].map(([label, value]) => (
-          // React.Fragment: 余分なDOM要素を生成せずに複数要素をまとめる
-          <React.Fragment key={label}>
+          // Fragment: 余分なDOM要素を生成せずに複数要素をまとめる
+          // key が必要な場合は <> 省略記法ではなく <Fragment key={...}> を使う
+          <Fragment key={label}>
             <dt style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '11px',
@@ -585,7 +591,7 @@ function MachineCard({ machine }: { machine: Machine }) {
             }}>
               {value}
             </dd>
-          </React.Fragment>
+          </Fragment>
         ))}
       </dl>
     </div>
@@ -595,8 +601,6 @@ function MachineCard({ machine }: { machine: Machine }) {
 // ─────────────────────────────────────────
 // メインコンポーネント
 // ─────────────────────────────────────────
-
-import React from 'react';
 
 export default function ServerPage() {
   return (
@@ -740,6 +744,7 @@ export default function ServerPage() {
  */
 
 import { useState } from 'react';
+import type { CSSProperties } from 'react';
 
 // ─────────────────────────────────────────
 // 型定義
@@ -915,7 +920,7 @@ export default function WritingPage() {
           // スクロールバーを非表示（見た目のため）
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
-        } as React.CSSProperties}>
+        } as CSSProperties}>
           {FILTER_OPTIONS.map((option) => {
             const isActive = option === activeFilter;
             return (

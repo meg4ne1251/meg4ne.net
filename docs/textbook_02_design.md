@@ -167,6 +167,8 @@ img {
  * フロントマター：このファイルで使う変数を受け取る
  * Propsとは「プロパティ」の略。外から渡してもらうデータ。
  */
+import '../styles/global.css';
+
 interface Props {
   title?: string;       // ページのタイトル（省略可、?がつく）
   description?: string; // SEO用の説明文
@@ -224,17 +226,16 @@ const {
     <slot />
   </body>
 </html>
-
-<!-- グローバルCSSはここに書くか、importする -->
-<style is:global>
-  /* global.cssの内容をここにimportする、または直接書く */
-  @import '../styles/global.css';
-</style>
 ```
 
 > **`<slot />`について**  
 > Astroのスロットは「ここに子コンテンツが入る」という印です。  
 > このレイアウトを使うページが書いた内容が、`<slot />`の位置に挿入されます。
+
+> **CSSのインポートについて**  
+> グローバルCSSはフロントマター（`---` の中）で `import '../styles/global.css'` と書きます。  
+> `<style is:global>` の中で `@import` を使う方法も動作しますが、Astroの推奨はフロントマターでのimportです。  
+> こうすることでViteがCSS全体を確実に処理し、ホットリロードも正しく動きます。
 
 ## 6-3 BaseLayoutを使ったページの書き方
 
