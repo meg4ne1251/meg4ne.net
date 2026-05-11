@@ -1,0 +1,63 @@
+# === 依存関係 ===
+# node_modules は npm install で再現できるため、Git に含めない
+# （容量が大きく、環境依存のバイナリも含むため）
+node_modules/
+
+# === ビルド成果物 ===
+# ビルドで生成されるファイルはソースコードから再現可能
+dist/
+.astro/
+
+# === 環境変数（最重要）===
+# APIキー、トークンなどの秘密情報は絶対に Git に含めない！
+# GitHub は Public リポジトリなので、全世界に公開されてしまう
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+
+# === TypeScript ===
+# 型チェックのキャッシュ
+*.tsbuildinfo
+
+# === ログ ===
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# === OS 生成ファイル ===
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# === エディタ / IDE ===
+# VSCode（プロジェクト共有の設定は除き、個人設定のみ無視）
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# Vim
+*.swp
+*.swo
+
+# JetBrains (WebStorm など)
+.idea/
+
+# === その他 ===
+# npm pack で生成されるアーカイブ
+*.tgz
+
+# Docker Compose の環境変数オーバーライドファイル
+docker-compose.override.yml
