@@ -170,10 +170,8 @@ import { MACHINES, SERVICES } from '../data/site';
 
   /* Services */
   .services {
-    display: grid;
-    grid-template-columns: 1fr 1fr auto auto;
-    column-gap: 16px;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
     border: 1px solid var(--bd);
     border-radius: 4px;
     overflow: hidden;
@@ -181,7 +179,10 @@ import { MACHINES, SERVICES } from '../data/site';
   }
   .svc-head,
   .svc-row {
-    display: contents;
+    display: grid;
+    grid-template-columns: 1fr 1fr auto auto;
+    column-gap: 16px;
+    align-items: center;
   }
   .svc-head > * {
     padding: 9px 0;
