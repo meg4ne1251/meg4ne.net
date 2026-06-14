@@ -15,7 +15,8 @@ const items: { id: Page | 'links'; label: string; href: string }[] = [
 
 <nav class="nav">
   <a href="/" class="logo">
-    <span class="logo-tilde">~/</span><span>meg4ne</span><span class="logo-dot">.</span><span class="logo-net">net</span>
+    <span class="logo-tilde">~/</span><span>meg4ne</span><span class="logo-dot">.</span><span class="logo-net">net</span
+    >
   </a>
 
   <!-- Desktop links -->
@@ -51,7 +52,7 @@ const items: { id: Page | 'links'; label: string; href: string }[] = [
     }
   </div>
   <div class="overlay-social">
-    <a href="https://github.com/meg4ne1251" target="_blank" rel="me noopener">GitLab</a>
+    <a href="https://github.com/meg4ne1251" target="_blank" rel="me noopener">GitHub</a>
     <a href="https://x.com/meg4ne1251" target="_blank" rel="me noopener">X / Twitter</a>
     <a href="mailto:yuta@meg4ne.net">Email</a>
   </div>
@@ -139,7 +140,10 @@ const items: { id: Page | 'links'; label: string; href: string }[] = [
     width: 22px;
     height: 1.5px;
     background: var(--t1);
-    transition: transform 0.2s ease, opacity 0.2s ease, background 0.2s ease;
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease,
+      background 0.2s ease;
   }
 
   /* Overlay — hidden on desktop */

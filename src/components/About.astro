@@ -24,14 +24,16 @@ import { PROFILE, CIRCLES, TECH, TECH_GROUP_COLORS } from '../data/site';
         <div class="row">
           <span class="row-key">サークル</span>
           <span class="row-val">
-            {CIRCLES.map((c, i) => (
-              <>
-                {i > 0 && ', '}
-                <a href={c.href} target="_blank" rel="noopener noreferrer" class="row-link">
-                  {c.label}
-                </a>
-              </>
-            ))}
+            {
+              CIRCLES.map((c, i) => (
+                <>
+                  {i > 0 && ', '}
+                  <a href={c.href} target="_blank" rel="noopener noreferrer" class="row-link">
+                    {c.label}
+                  </a>
+                </>
+              ))
+            }
           </span>
         </div>
         <Social class="profile-social" />

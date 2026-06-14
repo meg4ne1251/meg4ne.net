@@ -9,15 +9,20 @@ interface Props {
   title?: string;
   description?: string;
   active: Page;
+  ogImage?: string;
 }
 
 const {
   title = 'meg4ne.net',
   description = '電気通信大学 — 3Dモデラー & インフラ好き megane のパーソナルサイト。ポートフォリオ、自宅サーバー構成、技術ブログ。',
   active,
+  ogImage = '/og-image.svg',
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const fullOgImage = new URL(ogImage, Astro.site);
+const analyticsToken = import.meta.env.PUBLIC_CF_ANALYTICS_TOKEN;
+const isProd = import.meta.env.PROD;
 ---
 
 <!doctype html>
@@ -30,17 +35,23 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <link rel="canonical" href={canonical} />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#07090f" />
+    <meta name="color-scheme" content="dark" />
     <meta name="generator" content={Astro.generator} />
 
     <!-- Open Graph / social -->
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ja_JP" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="meg4ne.net" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={fullOgImage} />
+    <meta property="og:image:alt" content="meg4ne.net のサイトカード" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={fullOgImage} />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -54,5 +65,15 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <Nav active={active} />
     <slot />
     <Footer />
+    {
+      isProd && analyticsToken && (
+        <script
+          is:inline
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={JSON.stringify({ token: analyticsToken })}
+        />
+      )
+    }
   </body>
 </html>

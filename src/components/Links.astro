@@ -11,7 +11,12 @@ import { LINKS } from '../data/site';
     <div class="list">
       {
         LINKS.map((lk) => (
-          <a class="link-card" href={lk.href}>
+          <a
+            class="link-card"
+            href={lk.href}
+            target={lk.href.startsWith('mailto:') ? undefined : '_blank'}
+            rel={lk.href.startsWith('mailto:') ? undefined : 'noopener noreferrer'}
+          >
             <div class="dot" />
             <div>
               <div class="link-label">{lk.label}</div>

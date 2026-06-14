@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Label from '../components/Label.astro';
 import BackLink from '../components/BackLink.astro';
-import WritingFilter from '../components/WritingFilter.tsx';
+import WritingFilter from '../components/WritingFilter.astro';
 ---
 
 <Base
@@ -15,7 +15,7 @@ import WritingFilter from '../components/WritingFilter.tsx';
       <div class="head">
         <BackLink />
         <Label text="blog/index.ts" />
-        <WritingFilter client:load />
+        <WritingFilter />
       </div>
       <p class="note">// RSS/API で最新記事を自動取得する予定</p>
     </div>

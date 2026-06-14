@@ -1,0 +1,326 @@
+---
+// Writing filter — platform tabs + article card grid, vanilla JS filtering.
+import { ALL_POSTS, BLOGS, PLATFORM_COLORS, type Platform } from '../data/site';
+
+type Filter = 'All' | Platform;
+const TABS: Filter[] = ['All', 'Qiita', 'Zenn', 'Note'];
+const postCounts: Record<Filter, number> = {
+  All: ALL_POSTS.length,
+  Qiita: BLOGS.Qiita.length,
+  Zenn: BLOGS.Zenn.length,
+  Note: BLOGS.Note.length,
+};
+---
+
+<div class="wf-header">
+  <h1 class="wf-title">Writing</h1>
+  <div class="wf-tabs" role="tablist" aria-label="記事プラットフォームで絞り込む">
+    {
+      TABS.map((f) => {
+        const dot = f === 'All' ? undefined : PLATFORM_COLORS[f as Platform];
+        return (
+          <button
+            class:list={['wf-tab', { active: f === 'All' }]}
+            id={`tab-${f}`}
+            type="button"
+            role="tab"
+            aria-selected={f === 'All' ? 'true' : 'false'}
+            aria-controls="writing-results"
+            data-filter={f}
+            data-count={postCounts[f]}
+          >
+            {dot && <span class="wf-tab-dot" style={`background:${dot}`} />}
+            <span>{f}</span>
+            <span class="wf-tab-count">{postCounts[f]}</span>
+          </button>
+        );
+      })
+    }
+  </div>
+</div>
+
+<div id="writing-results" class="wf-grid" role="tabpanel" aria-labelledby="tab-All">
+  {
+    ALL_POSTS.map((post, i) => {
+      const dot = PLATFORM_COLORS[post.platform];
+      const pid = `stripe-${i}`;
+      return (
+        <a class="wf-card" href={post.href} target="_blank" rel="noopener noreferrer" data-platform={post.platform}>
+          <div class="wf-thumb">
+            <svg class="wf-thumb-svg" aria-hidden="true">
+              <defs>
+                <pattern
+                  id={pid}
+                  x="0"
+                  y="0"
+                  width="12"
+                  height="12"
+                  patternUnits="userSpaceOnUse"
+                  patternTransform="rotate(45)"
+                >
+                  <rect width="6" height="12" fill="rgba(255,255,255,.022)" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill={`url(#${pid})`} />
+              <rect width="100%" height="100%" fill={`${dot}08`} />
+            </svg>
+            <div class="wf-thumb-inner">
+              <div class="wf-thumb-circle" style={`background:${dot}`} />
+              <span>article image</span>
+            </div>
+          </div>
+          <div class="wf-body">
+            <div class="wf-platform">
+              <div class="wf-platform-dot" style={`background:${dot}`} />
+              <span>{post.platform}</span>
+            </div>
+            <p class="wf-card-title">{post.t}</p>
+            <div class="wf-meta">
+              <span class="wf-date">{post.d}</span>
+              {post.tags.map((tag) => (
+                <span class="wf-tag">{tag}</span>
+              ))}
+            </div>
+          </div>
+        </a>
+      );
+    })
+  }
+</div>
+<p class="wf-empty" aria-live="polite" hidden>選択したプラットフォームの記事はまだありません。</p>
+
+<script>
+  const tabs = document.querySelectorAll<HTMLButtonElement>('.wf-tab');
+  const cards = document.querySelectorAll<HTMLAnchorElement>('.wf-card');
+  const results = document.getElementById('writing-results');
+  const empty = document.querySelector<HTMLParagraphElement>('.wf-empty');
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const filter = tab.dataset.filter;
+      let visibleCount = 0;
+
+      tabs.forEach((t) => {
+        const selected = t === tab;
+        t.classList.toggle('active', selected);
+        t.setAttribute('aria-selected', String(selected));
+      });
+
+      cards.forEach((card) => {
+        const show = filter === 'All' || card.dataset.platform === filter;
+        card.hidden = !show;
+        if (show) visibleCount += 1;
+      });
+
+      if (results && filter) {
+        results.setAttribute('aria-labelledby', `tab-${filter}`);
+      }
+      if (empty) {
+        empty.hidden = visibleCount > 0;
+        empty.textContent = `${filter} の記事はまだありません。`;
+      }
+    });
+  });
+</script>
+
+<style>
+  .wf-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .wf-title {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 64px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: var(--t1);
+    margin: 0;
+  }
+
+  .wf-tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .wf-tab {
+    background: transparent;
+    border: 1px solid var(--bd);
+    color: var(--t2);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    padding: 8px 18px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .wf-tab[aria-selected='true'] {
+    background: rgba(0, 204, 245, 0.07);
+    border-color: var(--cy);
+    color: var(--cy);
+  }
+
+  .wf-tab.active {
+    background: rgba(0, 204, 245, 0.07);
+    border-color: var(--cy);
+    color: var(--cy);
+  }
+
+  .wf-tab-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .wf-tab-count {
+    color: var(--t3);
+    font-size: 12px;
+  }
+
+  .wf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .wf-card {
+    border: 1px solid var(--bd);
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--bg2);
+    cursor: pointer;
+    transition: border-color 0.15s;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+  }
+
+  .wf-card:hover {
+    border-color: rgba(255, 255, 255, 0.14);
+  }
+
+  .wf-card[hidden] {
+    display: none;
+  }
+
+  .wf-empty {
+    border: 1px solid var(--bd);
+    border-radius: 4px;
+    background: var(--bg2);
+    color: var(--t2);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    padding: 22px;
+  }
+
+  .wf-thumb {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: var(--bg3);
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .wf-thumb-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .wf-thumb-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+  }
+
+  .wf-thumb-circle {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    opacity: 0.45;
+  }
+
+  .wf-thumb-inner span {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--t3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .wf-body {
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .wf-platform {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .wf-platform-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .wf-platform span {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--t2);
+  }
+
+  .wf-card-title {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--t1);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .wf-meta {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-top: 4px;
+  }
+
+  .wf-date {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--t2);
+  }
+
+  .wf-tag {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--t1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1px 6px;
+    border-radius: 2px;
+    opacity: 0.65;
+  }
+</style>

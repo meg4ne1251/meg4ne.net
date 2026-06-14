@@ -1,0 +1,106 @@
+---
+import Base from '../layouts/Base.astro';
+import Label from '../components/Label.astro';
+import BackLink from '../components/BackLink.astro';
+---
+
+<Base
+  active="home"
+  title="Privacy Policy — meg4ne.net"
+  description="meg4ne.net のプライバシーポリシー。アクセス解析、外部リンク、お問い合わせ時の情報の扱いについて。"
+>
+  <main class="page">
+    <article class="inner">
+      <header class="head">
+        <BackLink />
+        <Label text="privacy/policy.md" />
+        <h1 class="h1">Privacy Policy</h1>
+        <p class="lead">meg4ne.net で扱う情報と、利用している解析ツールについて記載します。</p>
+      </header>
+
+      <section class="section">
+        <h2>アクセス解析</h2>
+        <p>
+          本サイトでは、サイトの利用状況を把握し改善に役立てるため、Cloudflare Web Analytics
+          を利用する場合があります。Cloudflare Web Analytics は Cookie
+          を使用せず、個人を追跡するための識別子を保存しません。
+        </p>
+        <p>
+          取得される情報には、閲覧ページ、参照元、利用ブラウザ、OS、国または地域などの統計情報が含まれます。これらは個人を特定する目的では利用しません。
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>お問い合わせ</h2>
+        <p>
+          メール等でお問い合わせいただいた場合、返信に必要な範囲でメールアドレスや本文に含まれる情報を利用します。これらの情報を、本人の同意なく第三者へ提供することはありません。
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>外部リンク</h2>
+        <p>
+          本サイトには GitHub、X、Qiita、Zenn、Note
+          など外部サイトへのリンクが含まれます。リンク先サイトでの情報の扱いについては、それぞれのプライバシーポリシーをご確認ください。
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>改定</h2>
+        <p>
+          本ポリシーは、必要に応じて内容を変更することがあります。変更後の内容は、本ページに掲載した時点で有効になります。
+        </p>
+        <p class="updated">Last updated: 2026-06-14</p>
+      </section>
+    </article>
+  </main>
+</Base>
+
+<style>
+  .page {
+    padding: 0 clamp(24px, 5vw, 80px) 96px;
+  }
+  .inner {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .head {
+    padding: 52px 0 28px;
+  }
+  .h1 {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 64px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: var(--t1);
+  }
+  .lead {
+    color: var(--t2);
+    font-size: 17px;
+    line-height: 1.8;
+    margin-top: 14px;
+  }
+  .section {
+    border-top: 1px solid var(--bd);
+    padding: 28px 0;
+  }
+  .section h2 {
+    color: var(--t1);
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  .section p {
+    color: var(--t2);
+    font-size: 16px;
+    line-height: 1.85;
+    margin-bottom: 12px;
+  }
+  .updated {
+    font-family: var(--font-mono);
+    font-size: 12px !important;
+    color: var(--t3) !important;
+  }
+</style>

@@ -93,12 +93,26 @@ export interface PostWithPlatform extends BlogPost {
 
 /** Every post, flattened with its platform. */
 export const ALL_POSTS: PostWithPlatform[] = (Object.entries(BLOGS) as [Platform, BlogPost[]][]).flatMap(
-  ([platform, posts]) => posts.map((p) => ({ ...p, platform }))
+  ([platform, posts]) => posts.map((p) => ({ ...p, platform })),
 );
 
 export const MACHINES: Machine[] = [
-  { name: 'HPE ProLiant ML350 Gen9', cpu: 'Intel Xeon E5-2620 v4 ×2', ram: '128GB DDR4 ECC', storage: 'NVMe 2TB + SAS HDD RAID10 2TB + SAS SSD 600GB', os: 'Proxmox VE 9.x', role: 'Hypervisor' },
-  { name: 'Desktop', cpu: 'Intel Core i7-14700', ram: '32GB', storage: '1TB NVMe', os: 'Windows 11', role: 'Main Workstation (自作PC)' },
+  {
+    name: 'HPE ProLiant ML350 Gen9',
+    cpu: 'Intel Xeon E5-2620 v4 ×2',
+    ram: '128GB DDR4 ECC',
+    storage: 'NVMe 2TB + SAS HDD RAID10 2TB + SAS SSD 600GB',
+    os: 'Proxmox VE 9.x',
+    role: 'Hypervisor',
+  },
+  {
+    name: 'Desktop',
+    cpu: 'Intel Core i7-14700',
+    ram: '32GB',
+    storage: '1TB NVMe',
+    os: 'Windows 11',
+    role: 'Main Workstation (自作PC)',
+  },
   { name: 'Laptop', cpu: 'Apple M1 Pro', ram: '32GB', storage: '1TB SSD', os: 'macOS', role: 'Mobile' },
 ];
 

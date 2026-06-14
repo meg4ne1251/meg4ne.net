@@ -1,43 +1,58 @@
-# Astro Starter Kit: Minimal
+# meg4ne.net
+
+Astro + React + TypeScript で構築している個人サイトです。プロフィール、自宅サーバー構成、技術記事への導線をまとめています。
+
+## Stack
+
+- Astro 6
+- React 18
+- TypeScript
+- Cloudflare Web Analytics
+- npm
+
+## Development
+
+Node.js `22.12.0` 以上を使用します。
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+ローカル開発サーバーは既定で `http://localhost:4321` に起動します。
 
-## 🚀 Project Structure
+## Checks
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```sh
+npm run check
+npm run lint
+npm run format-check
+npm run build
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+- `check`: Astro / TypeScript の型チェック
+- `lint`: ESLint による静的解析
+- `format-check`: Prettier のフォーマット確認
+- `build`: 本番用の静的サイト生成
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Content
 
-Any static assets, like images, can be placed in the `public/` directory.
+主要な表示データは [src/data/site.ts](src/data/site.ts) に集約しています。
 
-## 🧞 Commands
+- プロフィール、技術スタック、リンク
+- ブログ記事リンク
+- マシン構成、サービス一覧
 
-All commands are run from the root of the project, from a terminal:
+ページは [src/pages](src/pages) に配置しています。
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+## Analytics
 
-## 👀 Want to learn more?
+本番ビルドでは、環境変数 `PUBLIC_CF_ANALYTICS_TOKEN` が設定されている場合のみ Cloudflare Web Analytics のビーコンを読み込みます。解析ツールの利用方針は [src/pages/privacy.astro](src/pages/privacy.astro) に記載しています。
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## Deployment
+
+`npm run build` で `dist/` に静的ファイルを生成します。`astro.config.mjs` の `site` は `https://meg4ne.net` に設定されており、ビルド時に sitemap も生成されます。
+
+## Maintenance
+
+Dependabot は npm と GitHub Actions を週次で確認する設定です。依存関係更新のPRでは、上記の Checks を通してからマージします。
