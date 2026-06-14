@@ -2,7 +2,7 @@
 import Label from './Label.astro';
 import Heading from './Heading.astro';
 import Social from './Social.astro';
-import { PROFILE, TECH, TECH_GROUP_COLORS } from '../data/site';
+import { PROFILE, CIRCLES, TECH, TECH_GROUP_COLORS } from '../data/site';
 ---
 
 <section id="about" class="about">
@@ -21,6 +21,19 @@ import { PROFILE, TECH, TECH_GROUP_COLORS } from '../data/site';
             </div>
           ))
         }
+        <div class="row">
+          <span class="row-key">サークル</span>
+          <span class="row-val">
+            {CIRCLES.map((c, i) => (
+              <>
+                {i > 0 && ', '}
+                <a href={c.href} target="_blank" rel="noopener noreferrer" class="row-link">
+                  {c.label}
+                </a>
+              </>
+            ))}
+          </span>
+        </div>
         <Social class="profile-social" />
       </div>
       <!-- Tech stack -->
@@ -100,6 +113,13 @@ import { PROFILE, TECH, TECH_GROUP_COLORS } from '../data/site';
   }
   .profile-social {
     padding-top: 2px;
+  }
+  .row-link {
+    color: var(--cy);
+    text-decoration: none;
+  }
+  .row-link:hover {
+    text-decoration: underline;
   }
   .groups {
     display: flex;

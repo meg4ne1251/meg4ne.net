@@ -114,13 +114,17 @@ export const SERVICES: Service[] = [
 ];
 
 export const LINKS: SiteLink[] = [
-  { label: 'GitLab', sub: '@megane', href: 'https://gitlab.com' },
+  { label: 'GitHub', sub: '@meg4ne1251', href: 'https://github.com/meg4ne1251' },
   { label: 'X / Twitter', sub: '@megane', href: 'https://x.com' },
   { label: 'Email', sub: 'me@meg4ne.net', href: 'mailto:me@meg4ne.net' },
 ];
 
 export const PROFILE: [string, string][] = [
   ['所属', '電気通信大学'],
-  ['サークル', 'VLL, MMA'],
   ['趣味', '自宅サーバー管理 / 3Dモデル制作'],
+];
+
+export const CIRCLES: SiteLink[] = [
+  { label: 'バーチャルライブ研究会', sub: '', href: 'https://vll.jp/' },
+  { label: 'MMA', sub: '', href: 'https://wiki.mma.club.uec.ac.jp/' },
 ];
