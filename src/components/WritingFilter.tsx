@@ -30,7 +30,10 @@ function ArticleCard({ post, uid }: { post: PostWithPlatform; uid: string }) {
   const [hov, setHov] = useState(false);
   const dot = PLATFORM_COLORS[post.platform];
   return (
-    <div
+    <a
+      href={post.href}
+      target="_blank"
+      rel="noopener noreferrer"
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       style={{
@@ -42,6 +45,7 @@ function ArticleCard({ post, uid }: { post: PostWithPlatform; uid: string }) {
         transition: 'border-color .15s',
         display: 'flex',
         flexDirection: 'column',
+        textDecoration: 'none',
       }}
     >
       <ArticleThumb platform={post.platform} uid={uid} />
@@ -60,7 +64,7 @@ function ArticleCard({ post, uid }: { post: PostWithPlatform; uid: string }) {
           ))}
         </div>
       </div>
-    </div>
+    </a>
   );
 }
 

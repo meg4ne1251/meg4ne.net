@@ -10,8 +10,7 @@ const color = PLATFORM_COLORS[post.platform];
 const patternId = `stripe-${uid}`;
 ---
 
-<article class="card">
-  <div class="thumb">
+<a class="card" href={post.href} target="_blank" rel="noopener noreferrer">
     <svg class="thumb-bg" aria-hidden="true">
       <defs>
         <pattern id={patternId} x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -37,7 +36,7 @@ const patternId = `stripe-${uid}`;
       {post.tags.map((tag) => <span class="tag">{tag}</span>)}
     </div>
   </div>
-</article>
+</a>
 
 <style>
   .card {
@@ -49,6 +48,7 @@ const patternId = `stripe-${uid}`;
     transition: border-color 0.15s;
     display: flex;
     flex-direction: column;
+    text-decoration: none;
   }
   .card:hover {
     border-color: rgba(255, 255, 255, 0.14);

@@ -19,6 +19,8 @@ export interface BlogPost {
   /** Date (YYYY-MM-DD). */
   d: string;
   tags: string[];
+  /** Link to the original article. */
+  href: string;
 }
 
 export interface Machine {
@@ -59,17 +61,21 @@ export const TECH_GROUP_COLORS: Record<string, string> = {
 
 export const BLOGS: Record<Platform, BlogPost[]> = {
   Qiita: [
-    { t: 'ProxmoxでVMを自動プロビジョニングする方法', d: '2025-03-12', tags: ['Proxmox', 'Infra'] },
-    { t: 'ZabbixとGrafanaで自宅監視ダッシュボードを構築', d: '2025-01-28', tags: ['Zabbix', 'Grafana'] },
-    { t: 'BlenderのPython APIで作業を自動化する', d: '2024-11-15', tags: ['Blender', 'Python'] },
+    {
+      t: 'WindowsユーザーがMacBookに買い換えた話',
+      d: '2026-03-19',
+      tags: ['Windows', 'Blender', 'MacBook', 'Motionbuilder'],
+      href: 'https://qiita.com/meg4ne1251/items/3e7e54be9a8f35b7e69e',
+    },
   ],
-  Zenn: [
-    { t: 'Cloudflare TunnelでSSH over HTTPを実現する', d: '2025-04-02', tags: ['Cloudflare', 'SSH'] },
-    { t: 'UnityでViveモーションキャプチャを活用する', d: '2024-12-20', tags: ['Unity', 'MoCap'] },
-  ],
+  Zenn: [],
   Note: [
-    { t: '自宅サーバーを始めて1年、やってよかったこと', d: '2025-02-14', tags: ['Server', 'Life'] },
-    { t: '電通大のサークルと3Dモデリングの話', d: '2024-10-03', tags: ['Life'] },
+    {
+      t: '自宅鯖と振り返る2025',
+      d: '2025-12-12',
+      tags: ['ネットワーク', 'サーバー', '逸般の誤家庭', '自宅鯖'],
+      href: 'https://note.com/hot_rue8555/n/ndc0d3d8d04fa',
+    },
   ],
 };
 
@@ -89,9 +95,9 @@ export const ALL_POSTS: PostWithPlatform[] = (Object.entries(BLOGS) as [Platform
 );
 
 /** One featured post per platform (used on the home page). */
-export const FEATURED_POSTS: PostWithPlatform[] = (Object.entries(BLOGS) as [Platform, BlogPost[]][]).map(
-  ([platform, posts]) => ({ ...posts[0], platform })
-);
+export const FEATURED_POSTS: PostWithPlatform[] = (Object.entries(BLOGS) as [Platform, BlogPost[]][])
+  .filter(([, posts]) => posts.length > 0)
+  .map(([platform, posts]) => ({ ...posts[0], platform }));
 
 export const MACHINES: Machine[] = [
   { name: 'Server', cpu: 'Intel Core i5-12400', ram: '32GB DDR4', storage: '500GB NVMe + 4TB HDD', os: 'Proxmox VE 8.x', role: 'Hypervisor' },
