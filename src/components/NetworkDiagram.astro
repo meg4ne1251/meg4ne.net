@@ -1,104 +1,82 @@
 ---
-// Static SVG network topology for the homelab, transcribed from the prototype.
+// Static SVG network topology for the homelab.
 // (Some node colours are intentionally hard-coded hex values, matching the design.)
 ---
 
 <div class="diagram">
   <p class="diagram-title">Network Topology — meg4ne.net Homelab</p>
-  <svg viewBox="0 0 720 330" class="diagram-svg" role="img" aria-label="meg4ne.net homelab network topology">
-    <!-- Row 1: Internet → Cloudflare → Router → Switch → PCs -->
-    <text x="20" y="56" font-family="JetBrains Mono,monospace" font-size="9" fill="#28384a">Internet</text>
-    <line x1="20" y1="60" x2="20" y2="72" stroke="rgba(0,204,245,.2)" stroke-width="1"></line>
+  <svg viewBox="0 0 720 370" class="diagram-svg" role="img" aria-label="meg4ne.net homelab network topology">
+    <!-- Internet -->
+    <text x="340" y="20" font-family="JetBrains Mono,monospace" font-size="9" fill="#28384a">Internet</text>
+    <line x1="360" y1="24" x2="360" y2="50" stroke="rgba(255,255,255,.09)" stroke-width="1"></line>
 
-    <!-- Cloudflare (accent) -->
+    <!-- Router -->
     <g>
-      <rect x="0" y="72" width="120" height="38" rx="2" fill="rgba(0,204,245,.05)" stroke="rgba(0,204,245,.38)" stroke-width="1"></rect>
-      <text x="60" y="87" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#00ccf5">Cloudflare</text>
-      <text x="60" y="101" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#28384a">CDN / DNS</text>
+      <rect x="280" y="50" width="160" height="44" rx="2" fill="#0e1520" stroke="rgba(255,255,255,.07)" stroke-width="1"></rect>
+      <text x="360" y="69" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#c8d8e8">RTX830</text>
+      <text x="360" y="85" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#28384a">Router (Yamaha)</text>
     </g>
-    <line x1="120" y1="91" x2="156" y2="91" stroke="rgba(0,204,245,.24)" stroke-width="1"></line>
-    <polygon points="155,87 163,91 155,95" fill="rgba(0,204,245,.22)"></polygon>
-
-    <!-- ONU / Router -->
-    <g>
-      <rect x="163" y="72" width="120" height="38" rx="2" fill="#0e1520" stroke="rgba(255,255,255,.07)" stroke-width="1"></rect>
-      <text x="223" y="87" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#c8d8e8">ONU / Router</text>
-      <text x="223" y="101" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#28384a">WAN Edge</text>
-    </g>
-    <line x1="283" y1="91" x2="319" y2="91" stroke="rgba(255,255,255,.09)" stroke-width="1" stroke-dasharray="4 3"></line>
-    <polygon points="318,87 326,91 318,95" fill="rgba(255,255,255,.08)"></polygon>
+    <line x1="360" y1="94" x2="360" y2="124" stroke="rgba(255,255,255,.09)" stroke-width="1"></line>
 
     <!-- L2 Switch -->
     <g>
-      <rect x="326" y="72" width="120" height="38" rx="2" fill="#0e1520" stroke="rgba(255,255,255,.07)" stroke-width="1"></rect>
-      <text x="386" y="87" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#c8d8e8">L2 Switch</text>
-      <text x="386" y="101" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#28384a">8-port GbE</text>
+      <rect x="240" y="124" width="240" height="44" rx="2" fill="#0e1520" stroke="rgba(255,255,255,.07)" stroke-width="1"></rect>
+      <text x="360" y="143" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#c8d8e8">x510L-28GTX</text>
+      <text x="360" y="159" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#28384a">Switch (Allied Telesis)</text>
     </g>
-    <line x1="446" y1="91" x2="482" y2="91" stroke="rgba(255,255,255,.09)" stroke-width="1" stroke-dasharray="4 3"></line>
-    <polygon points="481,87 489,91 481,95" fill="rgba(255,255,255,.08)"></polygon>
+    <line x1="360" y1="168" x2="360" y2="196" stroke="rgba(255,255,255,.09)" stroke-width="1"></line>
+
+    <!-- Branch line to 4 devices -->
+    <line x1="120" y1="196" x2="600" y2="196" stroke="rgba(255,255,255,.09)" stroke-width="1"></line>
+    <line x1="120" y1="196" x2="120" y2="216" stroke="rgba(255,255,255,.09)" stroke-width="1"></line>
+    <line x1="280" y1="196" x2="280" y2="216" stroke="rgba(255,255,255,.09)" stroke-width="1"></line>
+    <line x1="440" y1="196" x2="440" y2="216" stroke="rgba(255,255,255,.09)" stroke-width="1"></line>
+    <line x1="600" y1="196" x2="600" y2="216" stroke="rgba(255,255,255,.09)" stroke-width="1"></line>
+
+    <!-- Main Server (accent) -->
+    <g>
+      <rect x="45" y="216" width="150" height="46" rx="2" fill="rgba(0,204,245,.05)" stroke="rgba(0,204,245,.38)" stroke-width="1"></rect>
+      <text x="120" y="236" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#00ccf5">ML350 Gen9</text>
+      <text x="120" y="252" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#28384a">Main Server (HPE ProLiant)</text>
+    </g>
+
+    <!-- Backup NAS -->
+    <g>
+      <rect x="205" y="216" width="150" height="46" rx="2" fill="#0e1520" stroke="rgba(255,255,255,.07)" stroke-width="1"></rect>
+      <text x="280" y="236" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#c8d8e8">Backup NAS</text>
+      <text x="280" y="252" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#28384a">Storage / Backup</text>
+    </g>
 
     <!-- Desktop PC -->
     <g>
-      <rect x="489" y="72" width="110" height="38" rx="2" fill="#0e1520" stroke="rgba(255,255,255,.07)" stroke-width="1"></rect>
-      <text x="544" y="87" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#c8d8e8">Desktop PC</text>
-      <text x="544" y="101" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#28384a">Ryzen 9 · Win11</text>
+      <rect x="365" y="216" width="150" height="46" rx="2" fill="#0e1520" stroke="rgba(255,255,255,.07)" stroke-width="1"></rect>
+      <text x="440" y="236" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#c8d8e8">Desktop PC</text>
+      <text x="440" y="252" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#28384a">Workstation</text>
     </g>
 
-    <!-- Laptop (top right) -->
+    <!-- Cisco AP -->
     <g>
-      <rect x="608" y="72" width="100" height="38" rx="2" fill="#0e1520" stroke="rgba(255,255,255,.07)" stroke-width="1"></rect>
-      <text x="658" y="87" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#c8d8e8">Laptop</text>
-      <text x="658" y="101" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#28384a">i7 · Ubuntu</text>
+      <rect x="525" y="216" width="150" height="46" rx="2" fill="#0e1520" stroke="rgba(255,255,255,.07)" stroke-width="1"></rect>
+      <text x="600" y="236" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#c8d8e8">Cisco AP</text>
+      <text x="600" y="252" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#28384a">Wireless AP</text>
     </g>
 
-    <!-- Switch → Proxmox -->
-    <line x1="386" y1="110" x2="386" y2="158" stroke="rgba(255,255,255,.09)" stroke-width="1" stroke-dasharray="4 3"></line>
-    <polygon points="382,157 386,165 390,157" fill="rgba(255,255,255,.08)"></polygon>
+    <!-- AP -> MacBook (wireless) -->
+    <line x1="600" y1="262" x2="600" y2="290" stroke="rgba(0,204,245,.3)" stroke-width="1" stroke-dasharray="4 3"></line>
 
-    <!-- Proxmox Host (accent) -->
+    <!-- MacBook -->
     <g>
-      <rect x="316" y="165" width="140" height="44" rx="2" fill="rgba(0,204,245,.05)" stroke="rgba(0,204,245,.38)" stroke-width="1"></rect>
-      <text x="386" y="183" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#00ccf5">Proxmox Host</text>
-      <text x="386" y="197" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#28384a">i5-12400 · 32GB RAM</text>
-    </g>
-
-    <!-- Proxmox → VMs -->
-    <line x1="386" y1="209" x2="386" y2="238" stroke="rgba(255,255,255,.09)" stroke-width="1" stroke-dasharray="4 3"></line>
-    <line x1="270" y1="238" x2="510" y2="238" stroke="rgba(255,255,255,.07)" stroke-width="1" stroke-dasharray="4 3"></line>
-    <line x1="270" y1="238" x2="270" y2="252" stroke="rgba(255,255,255,.07)" stroke-width="1" stroke-dasharray="4 3"></line>
-    <line x1="330" y1="238" x2="330" y2="252" stroke="rgba(255,255,255,.07)" stroke-width="1" stroke-dasharray="4 3"></line>
-    <line x1="390" y1="238" x2="390" y2="252" stroke="rgba(255,255,255,.07)" stroke-width="1" stroke-dasharray="4 3"></line>
-    <line x1="450" y1="238" x2="450" y2="252" stroke="rgba(255,255,255,.07)" stroke-width="1" stroke-dasharray="4 3"></line>
-    <line x1="510" y1="238" x2="510" y2="252" stroke="rgba(255,255,255,.07)" stroke-width="1" stroke-dasharray="4 3"></line>
-
-    <!-- VM chips -->
-    <g>
-      <rect x="241" y="252" width="58" height="22" rx="1" fill="#07090f" stroke="rgba(255,255,255,.06)" stroke-width="1"></rect>
-      <text x="270" y="266" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#56697c">GitLab</text>
-    </g>
-    <g>
-      <rect x="301" y="252" width="58" height="22" rx="1" fill="#07090f" stroke="rgba(255,255,255,.06)" stroke-width="1"></rect>
-      <text x="330" y="266" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#56697c">Docker</text>
-    </g>
-    <g>
-      <rect x="361" y="252" width="58" height="22" rx="1" fill="#07090f" stroke="rgba(255,255,255,.06)" stroke-width="1"></rect>
-      <text x="390" y="266" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#56697c">Grafana</text>
-    </g>
-    <g>
-      <rect x="421" y="252" width="58" height="22" rx="1" fill="#07090f" stroke="rgba(255,255,255,.06)" stroke-width="1"></rect>
-      <text x="450" y="266" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#56697c">Zabbix</text>
-    </g>
-    <g>
-      <rect x="481" y="252" width="58" height="22" rx="1" fill="#07090f" stroke="rgba(255,255,255,.06)" stroke-width="1"></rect>
-      <text x="510" y="266" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#56697c">Laptop</text>
+      <rect x="525" y="290" width="150" height="46" rx="2" fill="#0e1520" stroke="rgba(255,255,255,.07)" stroke-width="1"></rect>
+      <text x="600" y="310" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="11" fill="#c8d8e8">MacBook</text>
+      <text x="600" y="326" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="9" fill="#28384a">Wi-Fi client</text>
     </g>
 
     <!-- Legend -->
-    <g transform="translate(0,300)">
-      <circle cx="4" cy="5" r="4" fill="rgba(0,204,245,.3)"></circle>
-      <text x="14" y="9" font-family="JetBrains Mono,monospace" font-size="9" fill="#28384a">Public / Cloudflare</text>
-      <line x1="140" y1="5" x2="160" y2="5" stroke="rgba(255,255,255,.09)" stroke-width="1" stroke-dasharray="4 3"></line>
-      <text x="166" y="9" font-family="JetBrains Mono,monospace" font-size="9" fill="#28384a">Internal LAN</text>
+    <g transform="translate(0,358)">
+      <line x1="0" y1="0" x2="20" y2="0" stroke="rgba(255,255,255,.09)" stroke-width="1"></line>
+      <text x="28" y="4" font-family="JetBrains Mono,monospace" font-size="9" fill="#28384a">Wired (LAN)</text>
+      <line x1="160" y1="0" x2="180" y2="0" stroke="rgba(0,204,245,.3)" stroke-width="1" stroke-dasharray="4 3"></line>
+      <text x="188" y="4" font-family="JetBrains Mono,monospace" font-size="9" fill="#28384a">Wireless (Wi-Fi)</text>
     </g>
   </svg>
 </div>

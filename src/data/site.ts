@@ -94,11 +94,6 @@ export const ALL_POSTS: PostWithPlatform[] = (Object.entries(BLOGS) as [Platform
   ([platform, posts]) => posts.map((p) => ({ ...p, platform }))
 );
 
-/** One featured post per platform (used on the home page). */
-export const FEATURED_POSTS: PostWithPlatform[] = (Object.entries(BLOGS) as [Platform, BlogPost[]][])
-  .filter(([, posts]) => posts.length > 0)
-  .map(([platform, posts]) => ({ ...posts[0], platform }));
-
 export const MACHINES: Machine[] = [
   { name: 'Server', cpu: 'Intel Core i5-12400', ram: '32GB DDR4', storage: '500GB NVMe + 4TB HDD', os: 'Proxmox VE 8.x', role: 'Hypervisor' },
   { name: 'Desktop', cpu: 'AMD Ryzen 9 5900X', ram: '64GB DDR4', storage: '2TB NVMe', os: 'Windows 11', role: 'Main Workstation' },
@@ -114,9 +109,9 @@ export const SERVICES: Service[] = [
 ];
 
 export const LINKS: SiteLink[] = [
-  { label: 'GitHub', sub: '@meg4ne1251', href: 'https://github.com/meg4ne1251' },
-  { label: 'X / Twitter', sub: '@megane', href: 'https://x.com' },
-  { label: 'Email', sub: 'me@meg4ne.net', href: 'mailto:me@meg4ne.net' },
+  { label: 'GitHub', sub: 'https://github.com/meg4ne1251', href: 'https://github.com/meg4ne1251' },
+  { label: 'X / Twitter', sub: 'https://x.com/meg4ne1251', href: 'https://x.com/meg4ne1251' },
+  { label: 'Email', sub: 'yuta@meg4ne.net', href: 'mailto:yuta@meg4ne.net' },
 ];
 
 export const PROFILE: [string, string][] = [
