@@ -148,4 +148,16 @@ import { PROFILE, CIRCLES, TECH, TECH_GROUP_COLORS } from '../data/site';
     border-radius: 2px;
     line-height: 1.4;
   }
+
+  @media (max-width: 768px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+    .card-wide {
+      grid-column: auto;
+    }
+    .card {
+      padding: 22px;
+    }
+  }
 </style>

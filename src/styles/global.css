@@ -92,3 +92,20 @@ body {
     display: none !important;
   }
 }
+
+/* ───────────────────────── Mobile (<=768px) ──────────────────────────────
+   Adjustments for components that use inline styles (Hero / WritingFilter)
+   and therefore cannot be media-queried from their scoped <style> blocks. */
+@media (max-width: 768px) {
+  /* Hero: scale the giant name so 'megane' never overflows a phone width. */
+  .hero-name {
+    font-size: clamp(60px, 17vw, 104px) !important;
+    letter-spacing: -0.04em !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .hero-name {
+    font-size: 56px !important;
+  }
+}

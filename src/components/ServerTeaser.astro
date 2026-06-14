@@ -156,4 +156,17 @@ const vms = ['GitLab', 'Docker', 'Grafana', 'Zabbix'];
     border-radius: 2px;
     background: var(--bg);
   }
+
+  @media (max-width: 768px) {
+    .inner {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 14px 24px;
+    }
+  }
 </style>

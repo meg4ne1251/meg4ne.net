@@ -251,4 +251,46 @@ import { MACHINES, SERVICES } from '../data/site';
     font-size: 11px;
     color: var(--green);
   }
+
+  @media (max-width: 768px) {
+    .head {
+      padding: 36px 0 32px;
+    }
+    .block {
+      margin-bottom: 44px;
+    }
+
+    /* Services: switch the 4-column table into stacked cards. */
+    .services {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border: none;
+      border-radius: 0;
+      overflow: visible;
+      background: none;
+    }
+    .svc-head {
+      display: none;
+    }
+    .svc-row {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      padding: 16px 18px;
+      border: 1px solid var(--bd);
+      border-radius: 4px;
+      background: var(--bg2);
+    }
+    .svc-row > * {
+      padding: 0 !important;
+      border-bottom: none !important;
+    }
+    .svc-row:hover > * {
+      background: none;
+    }
+    .svc-role {
+      align-self: flex-start;
+    }
+  }
 </style>

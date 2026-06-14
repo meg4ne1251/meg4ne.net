@@ -103,6 +103,7 @@ export default function Hero() {
             <span style={{ color: 'var(--cy)' }}>whoami</span>
           </p>
           <h1
+            className="hero-name"
             style={{
               fontFamily: 'var(--font-display)',
               fontSize: 'clamp(72px,11vw,152px)',
@@ -129,7 +130,7 @@ export default function Hero() {
           </h1>
           <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
             <p style={{ fontFamily: 'var(--font-mono)', fontSize: '16px', color: 'var(--t2)' }}>
-              UEC · 3D Artist · Homelab
+              UEC · 3D modeler · Homelab
             </p>
             <div style={{ display: 'flex', gap: '6px' }}>
               {['VLL', 'MMA'].map((c) => (
