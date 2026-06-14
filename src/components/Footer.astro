@@ -1,0 +1,48 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <span class="copyright">© {year} megane — meg4ne.net</span>
+  <nav class="footer-links" aria-label="フッター">
+    <a href="/privacy">Privacy Policy</a>
+    <span class="stack">Astro + React + TypeScript</span>
+  </nav>
+</footer>
+
+<style>
+  .footer {
+    padding: 28px clamp(24px, 5vw, 80px);
+    border-top: 1px solid var(--bd);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .copyright {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--t3);
+  }
+  .footer-links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .footer-links a {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--t2);
+    text-decoration: none;
+  }
+  .footer-links a:hover {
+    color: var(--cy);
+  }
+  .stack {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--t3);
+  }
+</style>

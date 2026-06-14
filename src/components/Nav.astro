@@ -1,0 +1,278 @@
+---
+type Page = 'home' | 'server' | 'blog';
+interface Props {
+  active: Page;
+}
+const { active } = Astro.props;
+
+const items: { id: Page | 'links'; label: string; href: string }[] = [
+  { id: 'home', label: '~/about', href: '/#about' },
+  { id: 'server', label: '~/server', href: '/server' },
+  { id: 'blog', label: '~/blog', href: '/blog' },
+  { id: 'links', label: '~/links', href: '/#links' },
+];
+---
+
+<nav class="nav">
+  <a href="/" class="logo">
+    <span class="logo-tilde">~/</span><span>meg4ne</span><span class="logo-dot">.</span><span class="logo-net">net</span
+    >
+  </a>
+
+  <!-- Desktop links -->
+  <div class="nav-links">
+    {
+      items.map((item) => (
+        <a href={item.href} class:list={['nav-link', { active: item.id === active }]}>
+          {item.label}
+        </a>
+      ))
+    }
+  </div>
+
+  <!-- Mobile hamburger -->
+  <button class="nav-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="nav-overlay">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
+</nav>
+
+<!-- Mobile overlay menu -->
+<div class="nav-overlay" id="nav-overlay" hidden>
+  <p class="overlay-prompt"><span class="overlay-prompt-dim">root@meg4ne:~# </span>navigate</p>
+  <div class="overlay-links">
+    {
+      items.map((item) => (
+        <a href={item.href} class:list={['overlay-link', { active: item.id === active }]}>
+          <span>{item.label}</span>
+          {item.id === active && <span class="overlay-current">← current</span>}
+        </a>
+      ))
+    }
+  </div>
+  <div class="overlay-social">
+    <a href="https://github.com/meg4ne1251" target="_blank" rel="me noopener">GitHub</a>
+    <a href="https://x.com/meg4ne1251" target="_blank" rel="me noopener">X / Twitter</a>
+    <a href="mailto:yuta@meg4ne.net">Email</a>
+  </div>
+</div>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 300;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 clamp(20px, 5vw, 80px);
+    border-bottom: 1px solid var(--bd);
+    background: rgba(7, 9, 15, 0.9);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .logo {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--t1);
+    letter-spacing: -0.01em;
+    padding: 0;
+    text-decoration: none;
+    position: relative;
+    z-index: 310;
+  }
+  .logo-tilde {
+    color: var(--t3);
+  }
+  .logo-dot {
+    color: var(--t2);
+  }
+  .logo-net {
+    color: var(--cy);
+  }
+  .nav-links {
+    display: flex;
+    gap: 2px;
+  }
+  .nav-link {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px 12px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--t2);
+    border-radius: 3px;
+    transition: color 0.15s;
+    text-decoration: none;
+  }
+  .nav-link.active {
+    color: var(--cy);
+  }
+  .nav-link:hover {
+    color: var(--t1);
+  }
+
+  /* Hamburger button — hidden on desktop */
+  .nav-toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 0;
+    position: relative;
+    z-index: 310;
+  }
+  .nav-toggle .bar {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--t1);
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease,
+      background 0.2s ease;
+  }
+
+  /* Overlay — hidden on desktop */
+  .nav-overlay {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .nav {
+      height: 54px;
+      padding: 0 20px;
+    }
+    .nav-links {
+      display: none;
+    }
+    .nav-toggle {
+      display: flex;
+    }
+
+    /* Hamburger -> X when open */
+    .nav-toggle[aria-expanded='true'] .bar:nth-child(1) {
+      transform: translateY(6.5px) rotate(45deg);
+      background: var(--cy);
+    }
+    .nav-toggle[aria-expanded='true'] .bar:nth-child(2) {
+      opacity: 0;
+    }
+    .nav-toggle[aria-expanded='true'] .bar:nth-child(3) {
+      transform: translateY(-6.5px) rotate(-45deg);
+      background: var(--cy);
+    }
+
+    .nav-overlay {
+      display: flex;
+      position: fixed;
+      inset: 0;
+      z-index: 250;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 28px calc(40px + env(safe-area-inset-bottom, 0px));
+      background: rgba(7, 9, 15, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      animation: fadeIn 0.2s ease both;
+    }
+    .nav-overlay[hidden] {
+      display: none;
+    }
+    .overlay-prompt {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--cy);
+      margin-bottom: 18px;
+    }
+    .overlay-prompt-dim {
+      color: var(--t3);
+    }
+    .overlay-links {
+      display: flex;
+      flex-direction: column;
+    }
+    .overlay-link {
+      font-family: var(--font-mono);
+      font-size: 28px;
+      font-weight: 500;
+      color: var(--t1);
+      text-decoration: none;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--bd);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: color 0.15s;
+    }
+    .overlay-link.active {
+      color: var(--cy);
+    }
+    .overlay-current {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--cy);
+    }
+    .overlay-social {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+      margin-top: 40px;
+    }
+    .overlay-social a {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--t2);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .overlay-social a:hover {
+      color: var(--cy);
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+  const overlay = document.getElementById('nav-overlay');
+
+  function setOpen(open: boolean) {
+    if (!toggle || !overlay) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'メニューを閉じる' : 'メニューを開く');
+    overlay.hidden = !open;
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  toggle?.addEventListener('click', () => {
+    setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+  });
+
+  // Close when a menu link is tapped (handles same-page anchors).
+  overlay?.querySelectorAll('.overlay-link').forEach((link) => {
+    link.addEventListener('click', () => setOpen(false));
+  });
+
+  // Close on Escape.
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setOpen(false);
+  });
+
+  // Reset state if resized up to desktop.
+  window.matchMedia('(min-width: 769px)').addEventListener('change', (e) => {
+    if (e.matches) setOpen(false);
+  });
+</script>

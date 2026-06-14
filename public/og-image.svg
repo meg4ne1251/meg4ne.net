@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">meg4ne.net</title>
+  <desc id="desc">Personal site card for meg4ne.net</desc>
+  <rect width="1200" height="630" fill="#07090f" />
+  <path d="M0 0h1200v630H0z" fill="url(#grid)" opacity="0.8" />
+  <circle cx="220" cy="180" r="260" fill="#00ccf5" opacity="0.08" />
+  <circle cx="980" cy="520" r="320" fill="#00ccf5" opacity="0.06" />
+  <rect x="80" y="78" width="1040" height="474" rx="10" fill="#0c1018" stroke="rgba(255,255,255,0.09)" />
+  <text x="128" y="168" fill="#4a6272" font-family="JetBrains Mono, Menlo, monospace" font-size="30">root@meg4ne:~# whoami</text>
+  <text x="128" y="326" fill="#dde6f0" font-family="Space Grotesk, Arial, sans-serif" font-size="128" font-weight="700">megane</text>
+  <text x="128" y="396" fill="#00ccf5" font-family="JetBrains Mono, Menlo, monospace" font-size="34">UEC · 3D modeler · Homelab</text>
+  <text x="128" y="490" fill="#8098ae" font-family="JetBrains Mono, Menlo, monospace" font-size="28">Proxmox / Docker / Network / Blender</text>
+  <defs>
+    <pattern id="grid" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="rgba(255,255,255,0.18)" />
+    </pattern>
+  </defs>
+</svg>
