@@ -20,7 +20,7 @@ function ArticleThumb({ platform, uid }: { platform: Platform; uid: string }) {
       </svg>
       <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: '7px' }}>
         <div style={{ width: '22px', height: '22px', borderRadius: '50%', background: c, opacity: 0.45 }} />
-        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '8px', color: 'var(--t3)', letterSpacing: '.1em', textTransform: 'uppercase' }}>article image</span>
+        <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--t3)', letterSpacing: '.1em', textTransform: 'uppercase' }}>article image</span>
       </div>
     </div>
   );
@@ -52,13 +52,13 @@ function ArticleCard({ post, uid }: { post: PostWithPlatform; uid: string }) {
       <div style={{ padding: '14px 16px', display: 'flex', flexDirection: 'column', gap: '8px', flex: 1 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
           <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: dot, flexShrink: 0 }} />
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--t2)' }}>{post.platform}</span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--t2)' }}>{post.platform}</span>
         </div>
-        <p style={{ fontFamily: 'var(--font-sans)', fontSize: '14px', fontWeight: 400, color: 'var(--t1)', lineHeight: 1.6, flex: 1 }}>{post.t}</p>
+        <p style={{ fontFamily: 'var(--font-sans)', fontSize: '16px', fontWeight: 400, color: 'var(--t1)', lineHeight: 1.6, flex: 1 }}>{post.t}</p>
         <div style={{ display: 'flex', gap: '5px', flexWrap: 'wrap', alignItems: 'center', paddingTop: '4px' }}>
-          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--t2)' }}>{post.d}</span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--t2)' }}>{post.d}</span>
           {post.tags.map((tag) => (
-            <span key={tag} style={{ fontFamily: 'var(--font-mono)', fontSize: '10px', color: 'var(--t1)', border: '1px solid rgba(255,255,255,.1)', padding: '1px 6px', borderRadius: '2px', opacity: 0.65 }}>
+            <span key={tag} style={{ fontFamily: 'var(--font-mono)', fontSize: '12px', color: 'var(--t1)', border: '1px solid rgba(255,255,255,.1)', padding: '1px 6px', borderRadius: '2px', opacity: 0.65 }}>
               {tag}
             </span>
           ))}
@@ -90,8 +90,8 @@ export default function WritingFilter() {
                   border: `1px solid ${on ? 'var(--cy)' : 'var(--bd)'}`,
                   color: on ? 'var(--cy)' : 'var(--t2)',
                   fontFamily: 'var(--font-mono)',
-                  fontSize: '13px',
-                  padding: '7px 16px',
+                  fontSize: '14px',
+                  padding: '8px 18px',
                   cursor: 'pointer',
                   borderRadius: '3px',
                   transition: 'all .15s',

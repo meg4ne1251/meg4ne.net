@@ -98,7 +98,7 @@ export default function Hero() {
       >
         {/* Text */}
         <div>
-          <p style={{ fontFamily: 'var(--font-mono)', fontSize: '13px', color: 'var(--t2)', marginBottom: '20px' }}>
+          <p style={{ fontFamily: 'var(--font-mono)', fontSize: '15px', color: 'var(--t2)', marginBottom: '20px' }}>
             <span style={{ color: 'var(--t3)' }}>root@meg4ne:~# </span>
             <span style={{ color: 'var(--cy)' }}>whoami</span>
           </p>
@@ -128,7 +128,7 @@ export default function Hero() {
             </span>
           </h1>
           <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap' }}>
-            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '14px', color: 'var(--t2)' }}>
+            <p style={{ fontFamily: 'var(--font-mono)', fontSize: '16px', color: 'var(--t2)' }}>
               UEC · 3D Artist · Homelab
             </p>
             <div style={{ display: 'flex', gap: '6px' }}>
@@ -137,7 +137,7 @@ export default function Hero() {
                   key={c}
                   style={{
                     fontFamily: 'var(--font-mono)',
-                    fontSize: '11px',
+                    fontSize: '13px',
                     color: 'var(--cy)',
                     border: '1px solid rgba(0,204,245,.28)',
                     padding: '3px 9px',
@@ -156,7 +156,7 @@ export default function Hero() {
           className="hero-code-card"
           style={{
             fontFamily: 'var(--font-mono)',
-            fontSize: '12.5px',
+            fontSize: '14px',
             lineHeight: 1.9,
             padding: '22px 26px',
             border: '1px solid rgba(0,204,245,.18)',
