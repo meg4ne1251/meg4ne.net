@@ -49,6 +49,7 @@ export const ACCENT = '#00ccf5';
 export const TECH: TechGroup[] = [
   { g: '3D / Motion', items: ['Blender', 'MotionBuilder', 'Unity', 'C#', 'Vive MC'] },
   { g: 'Infrastructure', items: ['Proxmox', 'Docker', 'GitLab', 'Zabbix', 'Grafana', 'Cloudflare'] },
+  { g: 'Network', items: ['Juniper SRX', 'Allied Telesis', 'YAMAHA RTX', 'Cisco Catalyst', 'VyOS'] },
   { g: 'Tools', items: ['Obsidian', 'Bambu Lab', 'Claude Code'] },
 ];
 
@@ -56,6 +57,7 @@ export const TECH: TechGroup[] = [
 export const TECH_GROUP_COLORS: Record<string, string> = {
   Infrastructure: 'var(--cy)',
   '3D / Motion': '#a5f3fc',
+  Network: '#fbbf24',
   Tools: 'var(--t2)',
 };
 
@@ -95,17 +97,20 @@ export const ALL_POSTS: PostWithPlatform[] = (Object.entries(BLOGS) as [Platform
 );
 
 export const MACHINES: Machine[] = [
-  { name: 'Server', cpu: 'Intel Core i5-12400', ram: '32GB DDR4', storage: '500GB NVMe + 4TB HDD', os: 'Proxmox VE 8.x', role: 'Hypervisor' },
-  { name: 'Desktop', cpu: 'AMD Ryzen 9 5900X', ram: '64GB DDR4', storage: '2TB NVMe', os: 'Windows 11', role: 'Main Workstation' },
-  { name: 'Laptop', cpu: 'Intel Core i7', ram: '16GB', storage: '512GB NVMe', os: 'Windows 11 / Ubuntu', role: 'Mobile' },
+  { name: 'HPE ProLiant ML350 Gen9', cpu: 'Intel Xeon E5-2620 v4 ×2', ram: '128GB DDR4 ECC', storage: 'NVMe 2TB + SAS HDD RAID10 2TB + SAS SSD 600GB', os: 'Proxmox VE 9.x', role: 'Hypervisor' },
+  { name: 'Desktop', cpu: 'Intel Core i7-14700', ram: '32GB', storage: '1TB NVMe', os: 'Windows 11', role: 'Main Workstation (自作PC)' },
+  { name: 'Laptop', cpu: 'Apple M1 Pro', ram: '32GB', storage: '1TB SSD', os: 'macOS', role: 'Mobile' },
 ];
 
 export const SERVICES: Service[] = [
+  { name: 'NetBox', desc: 'IPAM / DCIM 管理ツール', role: 'Infrastructure Management' },
+  { name: 'Nextcloud', desc: 'セルフホストクラウドストレージ', role: 'Storage' },
   { name: 'GitLab CE', desc: 'セルフホスト Git サーバー', role: 'VCS / CI/CD' },
-  { name: 'Grafana', desc: 'メトリクス可視化ダッシュボード', role: 'Monitoring' },
   { name: 'Zabbix', desc: 'ネットワーク・サーバー監視', role: 'Monitoring' },
-  { name: 'Docker / Portainer', desc: 'コンテナ管理プラットフォーム', role: 'Container' },
-  { name: 'Cloudflare Tunnel', desc: '外部公開用セキュアトンネル', role: 'Network' },
+  { name: 'Docker', desc: 'コンテナ管理プラットフォーム', role: 'Container' },
+  { name: 'Minecraft Server', desc: 'マルチプレイ用ゲームサーバー', role: 'Game' },
+  { name: 'Backup Server (PBS)', desc: 'Proxmox Backup Server によるバックアップ基盤', role: 'Backup' },
+  { name: 'Nginx', desc: 'リバースプロキシ / Web サーバー', role: 'Network' },
 ];
 
 export const LINKS: SiteLink[] = [
