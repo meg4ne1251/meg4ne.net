@@ -1,0 +1,89 @@
+---
+type Page = 'home' | 'server' | 'blog';
+interface Props {
+  active: Page;
+}
+const { active } = Astro.props;
+
+const items: { id: Page | 'links'; label: string; href: string }[] = [
+  { id: 'home', label: '~/about', href: '/#about' },
+  { id: 'server', label: '~/server', href: '/server' },
+  { id: 'blog', label: '~/blog', href: '/blog' },
+  { id: 'links', label: '~/links', href: '/#links' },
+];
+---
+
+<nav class="nav">
+  <a href="/" class="logo">
+    <span class="logo-tilde">~/</span><span>meg4ne</span><span class="logo-dot">.</span><span class="logo-net">net</span>
+  </a>
+  <div class="nav-links">
+    {
+      items.map((item) => (
+        <a href={item.href} class:list={['nav-link', { active: item.id === active }]}>
+          {item.label}
+        </a>
+      ))
+    }
+  </div>
+</nav>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 clamp(20px, 5vw, 80px);
+    border-bottom: 1px solid var(--bd);
+    background: rgba(7, 9, 15, 0.9);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .logo {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--t1);
+    letter-spacing: -0.01em;
+    padding: 0;
+    text-decoration: none;
+  }
+  .logo-tilde {
+    color: var(--t3);
+  }
+  .logo-dot {
+    color: var(--t2);
+  }
+  .logo-net {
+    color: var(--cy);
+  }
+  .nav-links {
+    display: flex;
+    gap: 2px;
+  }
+  .nav-link {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px 12px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--t2);
+    border-radius: 3px;
+    transition: color 0.15s;
+    text-decoration: none;
+  }
+  .nav-link.active {
+    color: var(--cy);
+  }
+  .nav-link:hover {
+    color: var(--t1);
+  }
+</style>

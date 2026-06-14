@@ -1,0 +1,160 @@
+---
+import Label from './Label.astro';
+import Heading from './Heading.astro';
+
+const topology = [
+  { label: 'Cloudflare', sub: 'CDN / DNS', accent: true },
+  { label: 'ONU / Router', sub: 'WAN Edge', accent: false },
+  { label: 'L2 Switch', sub: '8-port GbE', accent: false },
+  { label: 'Proxmox Host', sub: 'i5-12400 · 32GB', accent: true },
+];
+const vms = ['GitLab', 'Docker', 'Grafana', 'Zabbix'];
+---
+
+<section class="teaser">
+  <div class="inner">
+    <div>
+      <Label text="homelab/index.ts" />
+      <Heading>Home Server</Heading>
+      <p class="lead">
+        Proxmox をベースとした自宅サーバー環境。Docker・GitLab・Grafana など複数のサービスを運用しています。
+      </p>
+      <a class="btn" href="/server">$ ./view_infra.sh</a>
+    </div>
+    <!-- Mini topology -->
+    <div class="topo">
+      <p class="topo-title">Network Overview</p>
+      <div class="topo-list">
+        {
+          topology.map((n, i) => (
+            <div class="topo-item">
+              <span class="connector">{i === 0 ? '↓' : '└'}</span>
+              <div class:list={['node', { accent: n.accent }]}>
+                <span class="node-label">{n.label}</span>
+                <span class="node-sub">{n.sub}</span>
+              </div>
+            </div>
+          ))
+        }
+        <div class="vms">
+          {vms.map((s) => <span class="vm">{s}</span>)}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .teaser {
+    padding: clamp(64px, 8vw, 100px) clamp(24px, 5vw, 80px);
+    border-top: 1px solid var(--bd);
+    background: var(--bg2);
+  }
+  .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 52px;
+    align-items: start;
+  }
+  .lead {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    color: var(--t2);
+    line-height: 1.75;
+    margin-bottom: 32px;
+  }
+  .btn {
+    display: inline-block;
+    background: transparent;
+    border: 1px solid rgba(0, 204, 245, 0.35);
+    color: var(--cy);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 11px 26px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+  }
+  .btn:hover {
+    background: rgba(0, 204, 245, 0.07);
+    border-color: var(--cy);
+  }
+
+  .topo {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 22px;
+    border: 1px solid var(--bd);
+    border-radius: 4px;
+    background: var(--bg3);
+  }
+  .topo-title {
+    font-size: 9px;
+    color: var(--t3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .topo-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .topo-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .connector {
+    color: var(--t3);
+    font-size: 10px;
+    min-width: 16px;
+    text-align: center;
+  }
+  .node {
+    flex: 1;
+    padding: 7px 12px;
+    border: 1px solid var(--bd);
+    border-radius: 2px;
+    background: var(--bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .node.accent {
+    border-color: rgba(0, 204, 245, 0.3);
+    background: rgba(0, 204, 245, 0.04);
+  }
+  .node-label {
+    color: var(--t1);
+    font-size: 11px;
+  }
+  .node.accent .node-label {
+    color: var(--cy);
+  }
+  .node-sub {
+    color: var(--t3);
+    font-size: 9px;
+  }
+  .vms {
+    margin-left: 24px;
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    padding-top: 6px;
+    border-left: 1px solid var(--bd);
+    padding-left: 12px;
+  }
+  .vm {
+    font-size: 9px;
+    color: var(--t2);
+    border: 1px solid var(--bd);
+    padding: 2px 6px;
+    border-radius: 2px;
+    background: var(--bg);
+  }
+</style>

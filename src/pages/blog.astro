@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import Label from '../components/Label.astro';
+import BackLink from '../components/BackLink.astro';
+import WritingFilter from '../components/WritingFilter.tsx';
+---
+
+<Base
+  active="blog"
+  title="Writing — meg4ne.net"
+  description="megane の技術記事まとめ。Qiita / Zenn / Note の投稿をプラットフォーム別に絞り込んで閲覧できます。"
+>
+  <main class="page">
+    <div class="inner">
+      <div class="head">
+        <BackLink />
+        <Label text="blog/index.ts" />
+        <WritingFilter client:load />
+      </div>
+      <p class="note">// RSS/API で最新記事を自動取得する予定</p>
+    </div>
+  </main>
+</Base>
+
+<style>
+  .page {
+    padding: 0 clamp(24px, 5vw, 80px) 96px;
+  }
+  .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .head {
+    padding: 52px 0 0;
+  }
+  .note {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--t3);
+    margin-top: 20px;
+  }
+</style>

@@ -1,0 +1,26 @@
+---
+// "Back to home" link (Variant B terminal style).
+---
+
+<a class="back" href="/">← cd ..</a>
+
+<style>
+  .back {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--t2);
+    margin-bottom: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.15s;
+    padding: 0;
+    text-decoration: none;
+  }
+  .back:hover {
+    color: var(--t1);
+  }
+</style>

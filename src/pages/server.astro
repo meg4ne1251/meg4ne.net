@@ -1,0 +1,245 @@
+---
+import Base from '../layouts/Base.astro';
+import Label from '../components/Label.astro';
+import BackLink from '../components/BackLink.astro';
+import NetworkDiagram from '../components/NetworkDiagram.astro';
+import { MACHINES, SERVICES } from '../data/site';
+---
+
+<Base
+  active="server"
+  title="Homelab — meg4ne.net"
+  description="meg4ne.net の自宅サーバー構成。ネットワークトポロジー、マシンスペック、稼働サービス一覧。Proxmox / Docker / GitLab / Grafana / Zabbix。"
+>
+  <main class="page">
+    <div class="inner">
+      <!-- Header -->
+      <div class="head">
+        <BackLink />
+        <Label text="infra/topology.ts" />
+        <h1 class="h1">Homelab</h1>
+      </div>
+
+      <!-- Network Diagram -->
+      <section class="block">
+        <h2 class="h2">Network Topology</h2>
+        <NetworkDiagram />
+      </section>
+
+      <!-- Machines -->
+      <section class="block">
+        <h2 class="h2">Machines</h2>
+        <div class="machines">
+          {
+            MACHINES.map((m) => (
+              <div class="machine">
+                <div class="machine-head">
+                  <h3 class="machine-name">{m.name}</h3>
+                  <span class="machine-role">{m.role}</span>
+                </div>
+                {(
+                  [
+                    ['OS', m.os],
+                    ['CPU', m.cpu],
+                    ['RAM', m.ram],
+                    ['Storage', m.storage],
+                  ] as [string, string][]
+                ).map(([k, val]) => (
+                  <div class="spec">
+                    <span class="spec-key">{k}</span>
+                    <span class="spec-val">{val}</span>
+                  </div>
+                ))}
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section>
+        <h2 class="h2">Services</h2>
+        <div class="services">
+          <div class="svc-head">
+            <span class="svc-th">Name</span>
+            <span class="svc-th">Description</span>
+            <span class="svc-th">Role</span>
+            <span class="svc-th">Status</span>
+          </div>
+          {
+            SERVICES.map((svc, i) => (
+              <div class:list={['svc-row', { last: i === SERVICES.length - 1 }]}>
+                <span class="svc-name">{svc.name}</span>
+                <span class="svc-desc">{svc.desc}</span>
+                <span class="svc-role">{svc.role}</span>
+                <div class="svc-status">
+                  <span class="svc-status-dot" />
+                  <span class="svc-status-text">active</span>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+    </div>
+  </main>
+</Base>
+
+<style>
+  .page {
+    padding: 0 clamp(24px, 5vw, 80px) 96px;
+  }
+  .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .head {
+    padding: 52px 0 44px;
+  }
+  .h1 {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 5vw, 64px);
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    color: var(--t1);
+  }
+  .block {
+    margin-bottom: 56px;
+  }
+  .h2 {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--t1);
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  /* Machines */
+  .machines {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 14px;
+  }
+  .machine {
+    padding: 22px;
+    border: 1px solid var(--bd);
+    border-radius: 4px;
+    background: var(--bg2);
+  }
+  .machine-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .machine-name {
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--t1);
+  }
+  .machine-role {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--cy);
+    border: 1px solid rgba(0, 204, 245, 0.25);
+    padding: 2px 7px;
+    border-radius: 2px;
+    background: rgba(0, 204, 245, 0.04);
+  }
+  .spec {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--bd);
+  }
+  .spec-key {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--t3);
+    padding-top: 3px;
+  }
+  .spec-val {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--t2);
+  }
+
+  /* Services */
+  .services {
+    border: 1px solid var(--bd);
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--bg2);
+  }
+  .svc-head {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto auto;
+    gap: 16px;
+    padding: 9px 18px;
+    border-bottom: 1px solid var(--bd);
+    background: rgba(255, 255, 255, 0.02);
+  }
+  .svc-th {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--t3);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .svc-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto auto;
+    gap: 16px;
+    padding: 13px 18px;
+    border-bottom: 1px solid var(--bd);
+    align-items: center;
+    transition: background 0.15s;
+  }
+  .svc-row.last {
+    border-bottom: none;
+  }
+  .svc-row:hover {
+    background: rgba(255, 255, 255, 0.02);
+  }
+  .svc-name {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--t1);
+  }
+  .svc-desc {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--t2);
+  }
+  .svc-role {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--t2);
+    border: 1px solid var(--bd);
+    padding: 2px 7px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .svc-status {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+  }
+  .svc-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+  }
+  .svc-status-text {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--green);
+  }
+</style>
