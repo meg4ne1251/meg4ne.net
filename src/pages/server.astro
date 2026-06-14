@@ -170,16 +170,21 @@ import { MACHINES, SERVICES } from '../data/site';
 
   /* Services */
   .services {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto auto;
+    column-gap: 16px;
+    align-items: center;
     border: 1px solid var(--bd);
     border-radius: 4px;
     overflow: hidden;
     background: var(--bg2);
   }
-  .svc-head {
-    display: grid;
-    grid-template-columns: 1fr 1fr auto auto;
-    gap: 16px;
-    padding: 9px 18px;
+  .svc-head,
+  .svc-row {
+    display: contents;
+  }
+  .svc-head > * {
+    padding: 9px 0;
     border-bottom: 1px solid var(--bd);
     background: rgba(255, 255, 255, 0.02);
   }
@@ -190,20 +195,24 @@ import { MACHINES, SERVICES } from '../data/site';
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
-  .svc-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr auto auto;
-    gap: 16px;
-    padding: 13px 18px;
+  .svc-row > * {
+    padding: 13px 0;
     border-bottom: 1px solid var(--bd);
-    align-items: center;
     transition: background 0.15s;
   }
-  .svc-row.last {
+  .svc-row.last > * {
     border-bottom: none;
   }
-  .svc-row:hover {
+  .svc-row:hover > * {
     background: rgba(255, 255, 255, 0.02);
+  }
+  .svc-head > *:first-child,
+  .svc-row > *:first-child {
+    padding-left: 18px;
+  }
+  .svc-head > *:last-child,
+  .svc-row > *:last-child {
+    padding-right: 18px;
   }
   .svc-name {
     font-family: var(--font-sans);
