@@ -125,6 +125,10 @@ export const SERVICES: Service[] = [
   { name: 'Minecraft Server', desc: 'マルチプレイ用ゲームサーバー', role: 'Game' },
   { name: 'Backup Server (PBS)', desc: 'Proxmox Backup Server によるバックアップ基盤', role: 'Backup' },
   { name: 'Nginx', desc: 'リバースプロキシ / Web サーバー', role: 'Network' },
+  { name: 'Obsidian Self-Host', desc: 'セルフホスト Obsidian 同期サーバー', role: 'Storage' },
+  { name: 'GNS3', desc: 'ネットワークエミュレーター', role: 'Lab' },
+  { name: 'Kea', desc: 'DHCP サーバー', role: 'Network' },
+  { name: 'CoreDNS', desc: 'DNS サーバー', role: 'Network' },
 ];
 
 export const LINKS: SiteLink[] = [
