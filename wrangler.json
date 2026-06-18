@@ -1,5 +1,6 @@
 {
   "name": "meg4ne-net",
+  "account_id": "a7a98db0dbbcefb8a2a9ee8334ddcb1f",
   "compatibility_date": "2026-06-14",
   "assets": {
     "directory": "./dist"
