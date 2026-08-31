@@ -16,16 +16,16 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/react": "^5.0.7",
+    "@astrojs/react": "^6.0.4",
     "@astrojs/sitemap": "^3.7.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
-    "astro": "^6.4.8",
+    "astro": "^7.2.9",
     "react": "^19.2.7",
     "react-dom": "^19.2.8"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.9",
+    "@astrojs/check": "^0.9.10",
     "@eslint/js": "^10.0.1",
     "eslint": "^10.5.0",
     "eslint-plugin-astro": "^1.7.0",
